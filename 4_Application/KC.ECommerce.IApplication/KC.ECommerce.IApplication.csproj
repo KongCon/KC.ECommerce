@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\1_Common\KC.ECommerce.Common\KC.ECommerce.Common.csproj" />
+    <ProjectReference Include="..\..\2_Domain\KC.ECommerce.IRepository\KC.ECommerce.IRepository.csproj" />
+  </ItemGroup>
+
+</Project>
