@@ -1,4 +1,6 @@
-﻿namespace KC.ECommerce.IApplication
+﻿using KC.ECommerce.IApplication.ParameterObject;
+
+namespace KC.ECommerce.IApplication
 {
     /// <summary>
     /// token获取参数

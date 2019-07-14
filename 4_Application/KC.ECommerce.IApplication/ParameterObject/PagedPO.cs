@@ -1,4 +1,4 @@
-﻿namespace KC.ECommerce.IApplication
+﻿namespace KC.ECommerce.IApplication.ParameterObject
 {
     public class PagedPO : BasePO
     {

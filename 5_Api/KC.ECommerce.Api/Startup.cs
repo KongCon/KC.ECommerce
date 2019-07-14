@@ -28,12 +28,6 @@ namespace KC.ECommerce.Api
             NLog.LogManager.Configuration.Variables["ConnectionStrings"] = Configuration.GetConnectionString("LogDBConnection");
             var jwtSection = Configuration.GetSection("JWTSetting");
             services.Configure<JWTSetting>(jwtSection);
-            //sms配置
-            var smsSection = Configuration.GetSection("SMSSetting");
-            services.Configure<SMSSetting>(smsSection);
-            //mail配置
-            var mailSection = Configuration.GetSection("MailSetting");
-            services.Configure<MailSetting>(mailSection);
             //JWT配置
             var jwtSetting = jwtSection.Get<JWTSetting>();
             services.AddJwtBearerAuthentication(jwtSetting);

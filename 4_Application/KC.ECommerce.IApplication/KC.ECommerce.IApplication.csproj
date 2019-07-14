@@ -9,4 +9,8 @@
     <ProjectReference Include="..\..\2_Domain\KC.ECommerce.IRepository\KC.ECommerce.IRepository.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="ValueObject\" />
+  </ItemGroup>
+
 </Project>

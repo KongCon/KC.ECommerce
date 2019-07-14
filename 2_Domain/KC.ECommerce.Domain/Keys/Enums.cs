@@ -2,7 +2,10 @@
 
 namespace KC.ECommerce.Domain.Keys
 {
-    public enum HandleStatus
+    /// <summary>
+    /// 产品状态
+    /// </summary>
+    public enum ProductStatus
     {
         /// <summary>
         /// 所有
@@ -11,15 +14,21 @@ namespace KC.ECommerce.Domain.Keys
         All = 0,
 
         /// <summary>
-        /// 未处理
+        /// 就绪
         /// </summary>
-        [Description("未处理")]
-        UnHandled =1,
+        [Description("就绪")]
+        Ready = 1,
 
         /// <summary>
-        /// 已处理
+        /// 已上架
         /// </summary>
-        [Description("已处理")]
-        Handled = 2
+        [Description("已上架")]
+        OnShelf = 2,
+
+        /// <summary>
+        /// 已下架
+        /// </summary>
+        [Description("已下架")]
+        Dismount = 3
     }
 }

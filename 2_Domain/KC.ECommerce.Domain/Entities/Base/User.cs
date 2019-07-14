@@ -1,6 +1,6 @@
-﻿namespace KC.ECommerce.Domain
+﻿namespace KC.ECommerce.Domain.Entities
 {
-    public class User: EntityBase
+    public partial class User: BaseEntity
     {
         #region Base属性   
         /// <summary>

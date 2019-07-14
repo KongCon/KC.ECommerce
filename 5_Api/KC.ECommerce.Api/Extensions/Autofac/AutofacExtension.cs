@@ -42,20 +42,6 @@ namespace KC.ECommerce.Api.Extensions
 
             }).InstancePerLifetimeScope();
             builder.RegisterType<ECommerceDBContext>().AsSelf().InstancePerLifetimeScope();
-
-            var ecrmDBConnection = configuration.GetConnectionString("ECRMDBConnection");
-            builder.Register(x =>
-            {
-                return new DbContextOptionsBuilder<ECRMDBContext>()
-                .UseLazyLoadingProxies()//EFCore默认不开启延迟加载，此处开启延迟加载（即使用导航属性）
-                .UseSqlServer(ecrmDBConnection)
-                .Options;
-                // 如果使用SQL Server 2008数据库，请添加UseRowNumberForPaging的选项
-                // 参考资料:https://github.com/aspnet/EntityFrameworkCore/issues/4616
-                //.UseSqlServer(dbConnection, o=>o.UseRowNumberForPaging())
-
-            }).InstancePerLifetimeScope();
-            builder.RegisterType<ECRMDBContext>().AsSelf().InstancePerLifetimeScope();
             #endregion
 
             #region 注入service层

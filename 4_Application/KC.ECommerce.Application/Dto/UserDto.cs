@@ -1,6 +1,6 @@
 ﻿namespace KC.ECommerce.Application
 {
-    public class UserDto
+    public class UserDTO
     {
         /// <summary>
         /// 账号

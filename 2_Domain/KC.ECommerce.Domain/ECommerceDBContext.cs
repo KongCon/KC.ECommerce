@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using KC.ECommerce.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace KC.ECommerce.Domain
 {
@@ -21,6 +22,10 @@ namespace KC.ECommerce.Domain
             modelBuilder.Entity<User>(entity =>
             {
                 entity.ToTable("User");
+            });
+            modelBuilder.Entity<Product>(entity =>
+            {
+                entity.ToTable("Product");
             });
             base.OnModelCreating(modelBuilder);
         }

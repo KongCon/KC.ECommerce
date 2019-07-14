@@ -70,36 +70,56 @@ export const constantRoutes = [{
         }]
     },
     {
-        path: '/warningNotice',
+        path: '/productManage',
         component: Layout,
-        redirect: '/warningNotice/list',
-        name: 'WarningNotice',
+        redirect: '/productManage/productList',
+        name: 'productManage',
         meta: {
-            title: '预警通知',
-            icon: 'mail'
+            title: '产品管理',
+            icon: ''
         },
         children: [{
-                path: 'list',
-                name: 'warningNoticeList',
-                component: () =>
-                    import ('@/views/warningNotice/list/index'),
-                meta: {
-                    title: '通知',
-                    icon: 'list'
-                }
-            },
-            {
-                path: 'config',
-                name: 'warningNoticeConfigList',
-                component: () =>
-                    import ('@/views/warningNotice/config/index'),
-                meta: {
-                    title: '配置',
-                    icon: 'config'
-                }
+            path: 'productList',
+            name: 'productList',
+            component: () =>
+                import ('@/views/productManage/productList/index'),
+            meta: {
+                title: '产品列表',
+                icon: 'list'
             }
-        ]
+        }]
     },
+    // {
+    //     path: '/warningNotice',
+    //     component: Layout,
+    //     redirect: '/warningNotice/list',
+    //     name: 'WarningNotice',
+    //     meta: {
+    //         title: '预警通知',
+    //         icon: 'mail'
+    //     },
+    //     children: [{
+    //             path: 'list',
+    //             name: 'warningNoticeList',
+    //             component: () =>
+    //                 import ('@/views/warningNotice/list/index'),
+    //             meta: {
+    //                 title: '通知',
+    //                 icon: 'list'
+    //             }
+    //         },
+    //         {
+    //             path: 'config',
+    //             name: 'warningNoticeConfigList',
+    //             component: () =>
+    //                 import ('@/views/warningNotice/config/index'),
+    //             meta: {
+    //                 title: '配置',
+    //                 icon: 'config'
+    //             }
+    //         }
+    //     ]
+    // },
     // 404 page must be placed at the end !!!
     {
         path: '*',

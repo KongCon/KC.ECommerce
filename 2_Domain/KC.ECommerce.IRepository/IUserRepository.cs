@@ -1,4 +1,5 @@
 ﻿using KC.ECommerce.Domain;
+using KC.ECommerce.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
