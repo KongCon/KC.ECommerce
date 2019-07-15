@@ -1,233 +1,62 @@
 <template>
   <div class="app-container">
     <div class="filter-container">
-      <el-input
-        v-model="listQuery.name"
-        placeholder="请输入产品名称"
-        style="width: 120px;"
-        class="filter-item"
-        @keyup.enter.native="handleFilter"
-      />
-      <el-select
-        v-model="listQuery.status"
-        placeholder="产品状态"
-        clearable
-        style="width: 120px"
-        class="filter-item"
-      >
-        <el-option
-          v-for="item in statusOptions"
-          :key="item.key"
-          :label="item.label"
-          :value="item.key"
-        />
+      <el-input v-model="listQuery.name" placeholder="请输入产品名称" style="width: 160px;" class="filter-item" @keyup.enter.native="handleFilter" />
+      <el-select v-model="listQuery.status" placeholder="产品状态" clearable style="width: 120px" class="filter-item">
+        <el-option v-for="item in statusOptions" :key="item.key" :label="item.label" :value="item.key" />
       </el-select>
-      <el-button
-        v-waves
-        class="filter-item"
-        type="primary"
-        icon="el-icon-search"
-        @click="handleFilter"
-      >查询</el-button>
+      <el-button v-waves class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">查询</el-button>
     </div>
 
-    <el-table
-      :key="tableKey"
-      v-loading="listLoading"
-      :data="list"
-      :height="tableHeight"
-      border
-      fit
-      highlight-current-row
-      style="width: 100%"
-    >
-      <el-table-column
-        type="expand"
-        label="#"
-      >
+    <el-table :key="tableKey" v-loading="listLoading" :data="list" :height="tableHeight" border fit highlight-current-row style="width: 100%">
+      <el-table-column type="expand" label="#">
         <template slot-scope="scope">
-          <el-form
-            label-position="left"
-            inline
-            class="table-expand"
-          >
-            <el-form-item label="短信内容">
-              <span>{{ scope.row.smsContent }}</span>
-            </el-form-item>
-            <el-form-item label="邮件内容">
-              <el-input
-                type="textarea"
-                :autosize="{ minRows: 2, maxRows: 5}"
-                v-model="scope.row.emailContent"
-              ></el-input>
+          <el-form label-position="left" inline class="table-expand">
+            <el-form-item label="简述">
+              <span>{{ scope.row.description }}</span>
             </el-form-item>
           </el-form>
         </template>
       </el-table-column>
-      <el-table-column
-        type="index"
-        label="序号"
-        width="50"
-        align="center"
-      ></el-table-column>
-      <el-table-column
-        label="ID"
-        prop="id"
-        align="center"
-        width="80"
-      >
+      <el-table-column type="index" label="序号" width="50" align="center"></el-table-column>
+      <el-table-column label="ID" prop="id" align="center" width="80">
         <template slot-scope="scope">
           <span>{{ scope.row.id }}</span>
         </template>
       </el-table-column>
-      <el-table-column
-        label="处理状态"
-        align="center"
-        width="80"
-      >
+      <el-table-column label="产品名称" align="center">
         <template slot-scope="scope">
-          <span>{{ scope.row.handleStatus }}</span>
+          <span>{{ scope.row.name }}</span>
         </template>
       </el-table-column>
-      <el-table-column
-        label="发送状态"
-        align="center"
-        width="80"
-      >
+      <el-table-column label="产品状态" align="center" width="80">
         <template slot-scope="scope">
-          <span>{{ scope.row.sendStatus }}</span>
+          <span>{{ scope.row.status }}</span>
         </template>
       </el-table-column>
-      <el-table-column
-        label="发送数量"
-        align="center"
-        width="80"
-      >
+      <el-table-column label="序号" align="center" width="80">
         <template slot-scope="scope">
-          <span>{{ scope.row.sendCount }}</span>
+          <span>{{ scope.row.sequence }}</span>
         </template>
       </el-table-column>
-      <el-table-column
-        label="发送时间"
-        align="center"
-        width="135"
-      >
+      <el-table-column label="创建日期" align="center" width="135">
         <template slot-scope="scope">
-          <span>{{ scope.row.sendTime }}</span>
+          <span>{{ scope.row.createdDate }}</span>
         </template>
       </el-table-column>
-      <el-table-column
-        label="创建时间"
-        align="center"
-        width="135"
-      >
+      <el-table-column label="更新日期" align="center" width="135">
         <template slot-scope="scope">
-          <span>{{ scope.row.createTime }}</span>
+          <span>{{ scope.row.updatedDate }}</span>
         </template>
       </el-table-column>
-      <el-table-column
-        label="发送邮件"
-        align="center"
-        width="80"
-      >
-        <template slot-scope="scope">
-          <span>{{ scope.row.isSendEmail }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column
-        label="发送短信"
-        align="center"
-        width="80"
-      >
-        <template slot-scope="scope">
-          <span>{{ scope.row.isSendSms }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column
-        label="配置类型"
-        align="center"
-        show-overflow-tooltip
-      >
-        <template slot-scope="scope">
-          <span>{{ scope.row.configType }}</span>
-        </template>
-      </el-table-column>
-
-      <el-table-column
-        fixed="right"
-        label="操作"
-        align="center"
-        width="120"
-        class-name="small-padding fixed-width"
-      >
+      <el-table-column fixed="right" label="操作" align="center" width="120" class-name="small-padding fixed-width">
         <template slot-scope="{row}">
-          <el-button
-            type="primary"
-            v-if="row.handleStatus==='未处理'"
-            size="mini"
-            @click="openHandleDialog(row)"
-          >处理</el-button>
+          <el-button type="primary" v-if="row.handleStatus==='未处理'" size="mini">编辑</el-button>
         </template>
       </el-table-column>
     </el-table>
 
-    <pagination
-      v-show="total>0"
-      :total="total"
-      :page.sync="listQuery.page"
-      :limit.sync="listQuery.limit"
-      @pagination="getList"
-    />
-
-    <el-dialog
-      title="处理状态更改"
-      :visible.sync="dialogUpdateVisible"
-    >
-      <el-form
-        :model="updateParas"
-        label-width="70px"
-        style="width: 500px; margin-left:50px;"
-      >
-        <el-form-item
-          label="短信内容"
-          v-if="show.sms"
-        >
-          <!-- <el-input v-model="updateParas.smsContent" autocomplete="off" maxlength="70"></el-input> -->
-          <el-input
-            type="text"
-            placeholder="请输入内容"
-            v-model="updateParas.smsContent"
-            maxlength="70"
-            show-word-limit
-          ></el-input>
-        </el-form-item>
-        <el-form-item
-          label="邮件内容"
-          v-if="show.email"
-        >
-          <!-- <el-input v-model="updateParas.emailContent" autocomplete="off"></el-input> -->
-          <!-- <el-input type="textarea" :autosize="{ minRows: 2, maxRows: 5}" v-model="updateParas.emailContent"></el-input> -->
-          <el-input
-            type="textarea"
-            :autosize="{ minRows: 2, maxRows: 5}"
-            placeholder="请输入内容"
-            v-model="updateParas.emailContent"
-            maxlength="500"
-            show-word-limit
-          ></el-input>
-        </el-form-item>
-      </el-form>
-      <div
-        slot="footer"
-        class="dialog-footer"
-      >
-        <el-button @click="dialogUpdateVisible = false">取 消</el-button>
-        <el-button
-          type="primary"
-          @click="updateHandleStatus()"
-        >确 定</el-button>
-      </div>
-    </el-dialog>
+    <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" />
   </div>
 </template>
 
@@ -251,13 +80,13 @@
 }
 </style>
 <script>
-import { fetchList, changeHandleStatus } from "@/api/warningNotice";
+import { getList } from "@/api/productManage";
 import waves from "@/directive/waves"; // waves directive
 import { parseTime } from "@/utils";
 import Pagination from "@/components/Pagination"; // secondary package based on el-pagination
 
 export default {
-  name: "warningNoticeList",
+  name: "productList",
   components: { Pagination },
   directives: { waves },
   data() {
@@ -270,26 +99,15 @@ export default {
       listQuery: {
         page: 1,
         limit: 20,
-        id: undefined,
-        handleStatus: 0,
-        smsContent: undefined,
-        emailContent: undefined
+        name: undefined,
+        status: "All"
       },
-      handleOptions: [
-        { label: "全部", key: 0 },
-        { label: "未处理", key: 1 },
-        { label: "已处理", key: 2 }
-      ],
-      dialogUpdateVisible: false,
-      updateParas: {
-        ids: [],
-        smsContent: undefined,
-        emailContent: undefined
-      },
-      show: {
-        sms: false,
-        email: false
-      }
+      statusOptions: [
+        { label: "所有", key: "All" },
+        { label: "就绪", key: "Ready" },
+        { label: "已上架", key: "OnShelf" },
+        { label: "已下架", key: "Dismount" }
+      ]
     };
   },
   created() {
@@ -303,7 +121,7 @@ export default {
         this.listQuery.id = undefined;
       }
       this.listLoading = true;
-      fetchList(this.listQuery).then(response => {
+      getList(this.listQuery).then(response => {
         this.list = response.data.items;
         this.total = response.data.total;
         this.listLoading = false;
@@ -316,32 +134,6 @@ export default {
     handleFilter() {
       this.listQuery.page = 1;
       this.getList();
-    },
-    openHandleDialog(row) {
-      this.updateParas.ids = [];
-      this.updateParas.ids.push(row.id);
-      this.updateParas.smsContent = "";
-      this.updateParas.emailContent = "";
-      this.show.sms = row.isSendSms === "是";
-      this.show.email = row.isSendEmail === "是";
-      this.dialogUpdateVisible = true;
-    },
-    updateHandleStatus() {
-      changeHandleStatus(this.updateParas).then(response => {
-        if (response.isSuccess) {
-          this.dialogUpdateVisible = false;
-          this.getList();
-          this.$message({
-            type: "success",
-            message: "处理成功!"
-          });
-        } else {
-          this.$message({
-            type: "error",
-            message: response.message
-          });
-        }
-      });
     }
   }
 };

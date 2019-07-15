@@ -22,7 +22,7 @@ module.exports = {
      * Detail: https://cli.vuejs.org/config/#publicpath
      */
     publicPath: '/',
-    outputDir: '../5_Api/KT.Supervisor.Api/wwwroot/dist',
+    outputDir: '../5_Api/KC.ECommerce.Api/wwwroot/dist',
     assetsDir: 'static',
     lintOnSave: process.env.NODE_ENV === 'development',
     productionSourceMap: false,

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json.Serialization;
+using Swashbuckle.AspNetCore.Swagger;
 using System;
 
 namespace KC.ECommerce.Api
@@ -49,6 +50,17 @@ namespace KC.ECommerce.Api
                 configuration.RootPath = "wwwroot/dist";
             });
 
+            //services.AddSwaggerGen(options =>
+            //{
+            //    options.DescribeAllEnumsAsStrings();
+            //    options.DescribeAllParametersInCamelCase();
+            //    options.SwaggerDoc("v1", new Info
+            //    {
+            //        Version = "v1",
+            //        Title = " API 文档"
+            //    });
+            //});
+
 
             //使用AutoFac自定义扩展依赖注入
             return services.UseAutofacDependency(Configuration);
@@ -65,6 +77,14 @@ namespace KC.ECommerce.Api
             app.UseSpaStaticFiles();
             app.UseAuthentication();
             app.UseCors("*");
+            //启用中间件服务生成Swagger作为JSON终结点
+            //app.UseSwagger();
+            //启用中间件服务对swagger-ui，指定Swagger JSON终结点
+            //app.UseSwaggerUI(c =>
+            //{
+            //    c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+            //});
+
             app.UseMvc();
             app.UseSpa(spa =>
             {
