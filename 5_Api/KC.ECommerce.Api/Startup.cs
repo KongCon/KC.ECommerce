@@ -61,7 +61,6 @@ namespace KC.ECommerce.Api
             //    });
             //});
 
-
             //使用AutoFac自定义扩展依赖注入
             return services.UseAutofacDependency(Configuration);
         }
