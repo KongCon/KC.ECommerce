@@ -17,6 +17,9 @@ const mutations = {
     },
     SET_AVATAR: (state, avatar) => {
         state.avatar = avatar
+    },
+    SET_MENUS: (state, menus) => {
+        state.menus = menus
     }
 }
 
@@ -42,9 +45,10 @@ const actions = {
         return new Promise((resolve, reject) => {
             getInfo().then(response => {
                 const { data } = response
-                const { name, avatar } = data
+                const { name, avatar,menus } = data
                 commit('SET_NAME', name)
                 commit('SET_AVATAR', avatar)
+                commit('SET_MENUS', menus)
                 resolve(data)
             }).catch(error => {
                 reject(error)

@@ -31,117 +31,133 @@ import Layout from '@/layout'
  * all roles can be accessed
  */
 export const constantRoutes = [{
-        path: '/redirect',
-        component: Layout,
-        hidden: true,
-        children: [{
-            path: '/redirect/:path*',
-            component: () =>
-                import ('@/views/redirect/index')
-        }]
-    },
-    {
-        path: '/login',
-        component: () =>
-            import ('@/views/login/index'),
-        hidden: true
-    },
+  path: '/redirect',
+  component: Layout,
+  hidden: true,
+  children: [{
+    path: '/redirect/:path*',
+    component: () =>
+                import('@/views/redirect/index')
+  }]
+},
+{
+  path: '/login',
+  component: () =>
+            import('@/views/login/index'),
+  hidden: true
+},
 
-    {
-        path: '/404',
-        component: () =>
-            import ('@/views/404'),
-        hidden: true
-    },
+{
+  path: '/404',
+  component: () =>
+            import('@/views/404'),
+  hidden: true
+},
 
-    {
-        path: '/',
-        component: Layout,
-        redirect: '/dashboard',
-        children: [{
-            path: 'dashboard',
-            name: 'Dashboard',
-            component: () =>
-                import ('@/views/dashboard/index'),
-            meta: {
-                title: '首页',
-                icon: 'dashboard'
-            }
-        }]
-    },
-    {
-        path: '/productManage',
-        component: Layout,
-        redirect: '/productManage/productList',
-        name: 'productManage',
-        meta: {
-            title: '产品管理',
-            icon: ''
-        },
-        children: [{
-            path: 'productList',
-            name: 'productList',
-            component: () =>
-                import ('@/views/productManage/productList/index'),
-            meta: {
-                title: '产品列表',
-                icon: 'list'
-            }
-        }]
-    },
-    // {
-    //     path: '/warningNotice',
-    //     component: Layout,
-    //     redirect: '/warningNotice/list',
-    //     name: 'WarningNotice',
-    //     meta: {
-    //         title: '预警通知',
-    //         icon: 'mail'
-    //     },
-    //     children: [{
-    //             path: 'list',
-    //             name: 'warningNoticeList',
-    //             component: () =>
-    //                 import ('@/views/warningNotice/list/index'),
-    //             meta: {
-    //                 title: '通知',
-    //                 icon: 'list'
-    //             }
-    //         },
-    //         {
-    //             path: 'config',
-    //             name: 'warningNoticeConfigList',
-    //             component: () =>
-    //                 import ('@/views/warningNotice/config/index'),
-    //             meta: {
-    //                 title: '配置',
-    //                 icon: 'config'
-    //             }
-    //         }
-    //     ]
-    // },
-    // 404 page must be placed at the end !!!
-    {
-        path: '*',
-        redirect: '/404',
-        hidden: true
+{
+  path: '/',
+  component: Layout,
+  redirect: '/dashboard',
+  children: [{
+    path: 'dashboard',
+    name: 'Dashboard',
+    component: () =>
+                import('@/views/dashboard/index'),
+    meta: {
+      title: '首页',
+      icon: 'dashboard'
     }
+  }]
+},
+//   {
+//     path: '/productManage',
+//     component: Layout,
+//     redirect: '/productManage/productList',
+//     name: 'productManage',
+//     meta: {
+//       title: '产品管理',
+//       icon: ''
+//     },
+//     children: [{
+//         path: 'productList',
+//         name: 'productList',
+//         component: () =>
+//           import('@/views/productManage/productList/index'),
+//         meta: {
+//           title: '产品列表',
+//           icon: 'list'
+//         }
+//       },
+//       {
+//         path: 'productList1',
+//         name: 'productList1',
+//         component: () =>
+//           import('@/views/productManage/productList/index'),
+//         meta: {
+//           title: '产品列表1',
+//           icon: 'list'
+//         }
+//       }
+//     ]
+//   },
+// 404 page must be placed at the end !!!
+{
+  path: '*',
+  redirect: '/404',
+  hidden: true
+}
 ]
 
+/**
+ * asyncRoutes
+ * the routes that need to be dynamically loaded based on user roles
+ */
+export const asyncRoutes = [{
+  path: '/productManage',
+  component: Layout,
+  redirect: '/productManage/productList',
+  name: 'productManage',
+  meta: {
+    title: '产品管理',
+    icon: ''
+  },
+  children: [{
+    path: 'productList',
+    name: 'productList',
+    component: () =>
+                import('@/views/productManage/productList/index'),
+    meta: {
+      title: '产品列表',
+      icon: 'list'
+    }
+  },
+  {
+    path: 'productList1',
+    name: 'productList1',
+    component: () =>
+                import('@/views/productManage/productList/index'),
+    meta: {
+      title: '产品列表1',
+      icon: 'list'
+    }
+  }
+  ]
+}]
+
 const createRouter = () => new Router({
-    mode: 'history', // require service support
-    scrollBehavior: () => ({
-        y: 0
-    }),
-    routes: constantRoutes
+  // mode: 'history', // require service support
+  scrollBehavior: () => ({
+    y: 0
+  }),
+  routes: constantRoutes
 })
 
 const router = createRouter()
 
 // Detail see: https://github.com/vuejs/vue-router/issues/1234#issuecomment-357941465
 export function resetRouter() {
-    const newRouter = createRouter()
-    router.matcher = newRouter.matcher // reset router
+  const newRouter = createRouter()
+  router.matcher = newRouter.matcher // reset router
 }
 
 export default router

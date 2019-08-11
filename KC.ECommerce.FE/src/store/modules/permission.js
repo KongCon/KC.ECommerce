@@ -1,13 +1,19 @@
-import { asyncRoutes, constantRoutes } from '@/router'
+// import {
+//     asyncRoutes,
+//     constantRoutes
+// } from '@/router'
+
+var _router = require('@/router')
 
 /**
  * Use meta.role to determine if the current user has permission
  * @param roles
  * @param route
  */
-function hasPermission(roles, route) {
-  if (route.meta && route.meta.roles) {
-    return roles.some(role => route.meta.roles.includes(role))
+function hasPermission(menus, route) {
+  if (route.name) {
+    return menus.includes(route.name)
+    // return roles.some(role => route.meta.roles.includes(role))
   } else {
     return true
   }
@@ -18,14 +24,16 @@ function hasPermission(roles, route) {
  * @param routes asyncRoutes
  * @param roles
  */
-export function filterAsyncRoutes(routes, roles) {
+export function filterAsyncRoutes(routes, menus) {
   const res = []
 
   routes.forEach(route => {
-    const tmp = { ...route }
-    if (hasPermission(roles, tmp)) {
+    const tmp = {
+      ...route
+    }
+    if (hasPermission(menus, tmp)) {
       if (tmp.children) {
-        tmp.children = filterAsyncRoutes(tmp.children, roles)
+        tmp.children = filterAsyncRoutes(tmp.children, menus)
       }
       res.push(tmp)
     }
@@ -42,20 +50,24 @@ const state = {
 const mutations = {
   SET_ROUTES: (state, routes) => {
     state.addRoutes = routes
-    state.routes = constantRoutes.concat(routes)
+    state.routes = _router.constantRoutes.concat(routes)
   }
 }
 
 const actions = {
-  generateRoutes({ commit }, roles) {
+  generateRoutes({
+    commit
+  }, menus) {
     return new Promise(resolve => {
       let accessedRoutes
       // if (roles.includes('admin')) {
-      //   accessedRoutes = asyncRoutes || []
+      //     accessedRoutes = asyncRoutes || []
       // } else {
-      //   accessedRoutes = filterAsyncRoutes(asyncRoutes, roles)
+      //     accessedRoutes = filterAsyncRoutes(asyncRoutes, roles)
       // }
-      accessedRoutes = asyncRoutes || []
+      // accessedRoutes = _router.asyncRoutes || []
+      accessedRoutes = filterAsyncRoutes(_router.asyncRoutes, menus)
+      // accessedRoutes = asyncRoutes || []
       commit('SET_ROUTES', accessedRoutes)
       resolve(accessedRoutes)
     })

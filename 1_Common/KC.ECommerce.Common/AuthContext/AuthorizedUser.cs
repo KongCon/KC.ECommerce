@@ -1,4 +1,7 @@
-﻿namespace KC.ECommerce.Common
+﻿using System;
+using System.Collections.Generic;
+
+namespace KC.ECommerce.Common
 {
     /// <summary>
     /// 已认证用户
@@ -29,5 +32,7 @@
         /// 头像
         /// </summary>
         public string Avatar { get; set; }
+
+        public List<String> Menus { get; set; }
     }
 }

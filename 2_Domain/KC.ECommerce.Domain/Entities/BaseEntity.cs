@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace KC.ECommerce.Domain.Entities
 {
@@ -7,6 +8,7 @@ namespace KC.ECommerce.Domain.Entities
         /// <summary>
         /// 主键ID
         /// </summary>
+        [Key]
         public int Id { get; set; }
 
         /// <summary>

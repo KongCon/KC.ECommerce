@@ -1,8 +1,13 @@
-﻿namespace KC.ECommerce.Domain.Entities
+﻿using System.Collections.Generic;
+
+namespace KC.ECommerce.Domain.Entities
 {
+    /// <summary>
+    /// 用户
+    /// </summary>
     public partial class User: BaseEntity
     {
-        #region Base属性   
+        #region 基础属性   
         /// <summary>
         /// 账号
         /// </summary>
@@ -32,6 +37,13 @@
         /// 头像地址
         /// </summary>
         public string Avatar { get; set; }
+        #endregion
+
+        #region 扩展属性
+        /// <summary>
+        /// 用户关联角色
+        /// </summary>
+        public virtual IList<UserRole> UserRoleList { get; set; }
         #endregion
     }
 }

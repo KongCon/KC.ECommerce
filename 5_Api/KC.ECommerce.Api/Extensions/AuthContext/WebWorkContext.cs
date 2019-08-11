@@ -1,6 +1,8 @@
 ﻿using KC.ECommerce.Common;
 using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Security.Claims;
 
 namespace KC.ECommerce.Api.Extensions.AuthContext
@@ -31,7 +33,8 @@ namespace KC.ECommerce.Api.Extensions.AuthContext
                             Account = _claimsPrincipal.FindFirstValue("account"),
                             Name = _claimsPrincipal.FindFirstValue(ClaimTypes.Name),
                             IsAdmin = Convert.ToBoolean(_claimsPrincipal.FindFirstValue("isAdmin")),
-                            Avatar = _claimsPrincipal.FindFirstValue("avatar")
+                            Avatar = _claimsPrincipal.FindFirstValue("avatar"),
+                            Menus=JsonConvert.DeserializeObject<List<string>>(_claimsPrincipal.FindFirstValue("menus"))
                         };
                     }
                 }

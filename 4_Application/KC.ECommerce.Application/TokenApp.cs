@@ -3,8 +3,11 @@ using KC.ECommerce.IApplication;
 using KC.ECommerce.IRepository;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Security.Claims;
 using System.Text;
 
@@ -45,7 +48,13 @@ namespace KC.ECommerce.Application
                 response.SetFailed("账号已被禁用", ErrorCode.Failed);
                 return response;
             }
-
+            var menuList = new List<string>();
+            var roleList = user.UserRoleList.Select(x => x.Role).ToList();
+            if (roleList != null && roleList.Count > 0)
+            {
+                menuList = roleList.SelectMany(x => x.RoleMenuList.Select(t => t.Menu.Url)).ToList();
+            }
+           
             var claimsIdentity = new ClaimsIdentity(new Claim[]
                 {
                     new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
@@ -53,6 +62,7 @@ namespace KC.ECommerce.Application
                     new Claim(ClaimTypes.Name, user.Name),
                     new Claim("isAdmin", user.IsAdmin.ToString()),
                     new Claim("avatar", user.Avatar),
+                    new Claim("menus",JsonConvert.SerializeObject(menuList))
                 });
             var token = this.GenerateToken(claimsIdentity);
             response.Data = token;
