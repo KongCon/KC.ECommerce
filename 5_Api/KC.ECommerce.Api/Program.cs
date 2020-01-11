@@ -39,6 +39,7 @@ namespace KC.ECommerce.Api
                 //{
                 //    config.AddJsonFile("myappsettings.json", optional: true, reloadOnChange: true);
                 //})
+                .UseUrls("http://localhost:9876")
                 .UseStartup<Startup>()
                 .ConfigureLogging(logging =>
                 {
