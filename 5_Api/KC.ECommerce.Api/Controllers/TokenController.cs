@@ -17,7 +17,7 @@ namespace KC.ECommerce.Api.Controllers
 
         [AllowAnonymous]
         [HttpGet]
-        public IActionResult Post([FromQuery]TokenGetPO qc)
+        public IActionResult Get([FromQuery]TokenGetPO qc)
         {
             var response = _tokenApp.GetToken(qc);
             return Ok(response);
