@@ -7,8 +7,8 @@
   <ItemGroup>
     <PackageReference Include="CSRedisCore" Version="3.0.61" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="2.2.0" />
-    <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="5.5.0" />
-    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="5.5.0" />
+    <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="5.7.0" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="5.7.0" />
   </ItemGroup>
 
   <ItemGroup>
